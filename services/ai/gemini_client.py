@@ -22,7 +22,7 @@ class GeminiAIClient(BaseAIClient):
         Initialize the Gemini AI client.
         """
 
-        logger.info("Initializing Gemini AI Client...")
+        #logger.info("Initializing Gemini AI Client...")
 
         self.api_key = settings.gemini_api_key
         self.model_name = settings.model_name
@@ -33,7 +33,7 @@ class GeminiAIClient(BaseAIClient):
 
         self.genai_client = genai.Client(api_key=self.api_key)
 
-        logger.success("Gemini AI Client initialized successfully.")
+        #logger.success("Gemini AI Client initialized successfully.")
 
     def generate_text(self, prompt: str) -> str:
         """
@@ -46,7 +46,7 @@ class GeminiAIClient(BaseAIClient):
             AI generated response.
         """
 
-        logger.info("Sending prompt to Gemini...")
+        #logger.info("Sending prompt to Gemini...")
 
         try:
             response = self.genai_client.models.generate_content(
@@ -54,7 +54,7 @@ class GeminiAIClient(BaseAIClient):
                 contents=prompt,
             )
 
-            logger.success("Response received from Gemini.")
+            #logger.success("Response received from Gemini.")
 
             return response.text
 
