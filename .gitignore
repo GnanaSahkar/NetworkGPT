@@ -1,1 +1,18 @@
 .env
+# Python
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# Virtual Environment
+.venv/
+
+# Environment Variables
+.env
+
+# Data
+data/reports/
+data/processed/
+data/vectordb/
