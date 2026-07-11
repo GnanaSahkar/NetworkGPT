@@ -17,13 +17,13 @@ class AIService:
         logger.success("AI Service initialized successfully.")
         
     def ask(self, question: str) -> str:
-        prompt = self.prompt_manager.create_prompt(question)
+        prompt = self.prompt_manager.general_prompt(question)
         return self.client.generate_text(prompt)
     
-    def summarize_configureation(self, configuration: str) -> str:
-        prompt = self.prompt_manager.create_summary_prompt(configuration)
+    def summarize_configuration(self, configuration: str) -> str:
+        prompt = self.prompt_manager.summary_prompt(configuration)
         return self.client.generate_text(prompt)
     
     def explain_command(self, command: str) -> str:
-        prompt = self.prompt_manager.create_command_explanation_prompt(command)
+        prompt = self.prompt_manager.command_prompt(command)
         return self.client.generate_text(prompt)
