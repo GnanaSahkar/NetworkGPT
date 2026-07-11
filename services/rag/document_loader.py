@@ -9,7 +9,6 @@ from langchain_community.document_loaders import (
     PyPDFLoader,
     TextLoader,
 )
-
 from config.settings import settings
 from utils.logger import logger
 
@@ -17,7 +16,7 @@ class DocumentLoader:
     """
     Loads documents from the knowledge base.
     """
-
+    
     def __init__(self):
         self.docs_dir = settings.DOCS_DIR
 
