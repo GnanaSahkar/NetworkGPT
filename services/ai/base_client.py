@@ -17,6 +17,9 @@ class BaseAIClient(ABC):
             str: The generated response.
         """
         pass
+    def embed_text(self, text: str) -> list[float]:
+      """Generate embeddings for text."""
+    pass
     
     def generate_text(self, prompt: str) -> str:
      pass

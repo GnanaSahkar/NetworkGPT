@@ -1,34 +1,23 @@
-from services.ai.ai_service import AIService
+"""
+NetworkGPT
+
+AI-powered Cisco Network Configuration Analyzer
+"""
+
+from utils.logger import logger
 
 
 def main():
-    ai = AIService()
+    logger.info("Starting NetworkGPT...")
 
-    print("=" * 80)
-    print("GENERAL QUESTION")
-    print("=" * 80)
-    print(ai.ask("What is OSPF?"))
+    print("=" * 70)
+    print("🚀 Welcome to NetworkGPT")
+    print("AI-Powered Network Configuration Analyzer")
+    print("=" * 70)
 
-    print("\n" + "=" * 80)
-    print("COMMAND EXPLANATION")
-    print("=" * 80)
-    print(ai.explain_command("aaa new-model"))
+    print("\nApplication initialized successfully.")
 
-    sample_config = """
-hostname R1
-!
-interface GigabitEthernet0/0
- ip address 192.168.1.1 255.255.255.0
- no shutdown
-!
-router ospf 1
- network 192.168.1.0 0.0.0.255 area 0
-"""
-
-    print("\n" + "=" * 80)
-    print("CONFIGURATION SUMMARY")
-    print("=" * 80)
-    print(ai.summarize_configuration(sample_config))
+    logger.success("NetworkGPT started successfully.")
 
 
 if __name__ == "__main__":

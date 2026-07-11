@@ -20,6 +20,7 @@ class Settings:
     PROCESSED_DIR: Path = DATA_DIR / "processed"
     REPORTS_DIR: Path = DATA_DIR / "reports"
     VECTOR_DB_DIR: Path = DATA_DIR / "vectordb"
+    DOCS_DIR: Path = BASE_DIR / "docs"
     
     #===================
     #API keys
@@ -33,5 +34,19 @@ class Settings:
     #===================
     TEMPERATURE: float = 0.2
     MAX_OUTPUT_TOKENS: int = 4096
+    
+    # ===================
+    # RAG Settings
+    # ===================
+
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
+    TOP_K: int = 5
+    # ===================
+# Embedding Settings
+# ===================
+
+    EMBEDDING_MODEL = "gemini-embedding-001"
+    
     
 settings = Settings()  

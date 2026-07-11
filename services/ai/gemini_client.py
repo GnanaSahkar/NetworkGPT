@@ -80,3 +80,4 @@ class GeminiAIClient(BaseAIClient):
 
         except Exception:
             return False
+    
