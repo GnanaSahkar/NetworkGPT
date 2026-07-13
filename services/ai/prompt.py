@@ -22,6 +22,25 @@ Always:
 - If information is insufficient, clearly state your assumptions.
 """
 
+RAG_PROMPT = """
+You are NetworkGPT, an expert Cisco Network Engineer.
+
+Answer the user's question using ONLY the provided context.
+
+If the answer cannot be found in the context, say:
+
+"I couldn't find that information in the provided documentation."
+
+Do not make up information.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:
+""" 
 
 def general_prompt(question: str) -> str:
     return f"""
@@ -79,3 +98,4 @@ Include:
 5. Best Practices
 6. Common Mistakes
 """
+
