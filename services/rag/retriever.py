@@ -1,8 +1,8 @@
 """
 Retriever for NetworkGPT.
 
-Returns the top K most relevant chunks from the vector database
-based on the user's query.
+Retrieves the most relevant document chunks
+from the vector database.
 """
 
 from services.rag.embeddings import EmbeddingService
@@ -36,14 +36,16 @@ class Retriever:
             top_k: Number of chunks to retrieve.
 
         Returns:
-            Relevant document chunks.
+            ChromaDB search results.
         """
 
-        logger.info("Generating query embedding...")
+        
 
-        query_embedding = self.embedding_service.embed_query(query)
+        query_embedding = self.embedding_service.embed_query(
+            query
+        )
 
-        logger.info("Searching Vector Store...")
+        
 
         results = self.vector_store.similarity_search(
             embedding=query_embedding,

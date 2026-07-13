@@ -3,6 +3,7 @@
 Test the complete RAG ingestion pipeline.
 """
 
+from services.rag import vector_store
 from services.rag.document_loader import DocumentLoader
 from services.rag.text_splitter import textsplitter as TextSplitter
 from services.rag.embeddings import EmbeddingService
@@ -37,6 +38,8 @@ def main():
     print("Documents added successfully!")
 
     print(f"Collection Count : {vector_store.collection.count()}")
+    print(f"Collection Name : {vector_store.collection.name}")
+    
 
 
 if __name__ == "__main__":
