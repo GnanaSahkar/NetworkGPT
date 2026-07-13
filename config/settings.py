@@ -48,5 +48,11 @@ class Settings:
 
     EMBEDDING_MODEL = "gemini-embedding-001"
     
+# ===================
+# ChromaDB Settings
+# ===================
+
+    COLLECTION_NAME: str = "networkgpt_docs"
+    
     
 settings = Settings()  
