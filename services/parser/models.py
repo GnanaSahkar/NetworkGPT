@@ -101,3 +101,17 @@ class Route:
     subnet_mask: str
 
     next_hop: str
+    
+@dataclass
+class BGP:
+    """
+    Represents BGP configuration.
+    """
+
+    as_number: int
+
+    router_id: str = ""
+
+    neighbors: list[str] = field(default_factory=list)
+
+    networks: list[str] = field(default_factory=list)

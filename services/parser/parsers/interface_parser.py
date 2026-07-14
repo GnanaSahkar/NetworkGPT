@@ -7,9 +7,9 @@ structured Interface models.
 
 from services.parser.models import Interface
 from utils.logger import logger
+from services.parser.base_parser import BaseParser
 
-
-class InterfaceParser:
+class InterfaceParser(BaseParser):
     """
     Parses Cisco interface configurations.
     """
