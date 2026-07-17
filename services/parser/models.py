@@ -115,3 +115,12 @@ class BGP:
     neighbors: list[str] = field(default_factory=list)
 
     networks: list[str] = field(default_factory=list)
+@dataclass
+class ParsedConfig:
+    interfaces: list[Interface] = field(default_factory=list)
+    aaa: AAA | None = None
+    vlans: list[VLAN] = field(default_factory=list)
+    ospf: OSPF | None = None
+    acls: list[ACL] = field(default_factory=list)
+    routes: list[Route] = field(default_factory=list)
+    bgp: BGP | None = None
