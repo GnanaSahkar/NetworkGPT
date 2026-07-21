@@ -1,8 +1,5 @@
-
 from services.parser.base_parser import BaseParser
-
 from services.parser.models import ParsedConfig
-
 
 from services.parser.parsers.interface_parser import InterfaceParser
 from services.parser.parsers.aaa_parser import AAAParser
@@ -14,22 +11,39 @@ from services.parser.parsers.bgp_parser import BGPParser
 
 from utils.logger import logger
 
+
 class ConfigParser(BaseParser):
-    
+    """
+    Coordinates all protocol-specific parsers and returns
+    a structured ParsedConfig object.
+    """
+
     def __init__(self):
-        logger.info("Started the config Parser")
-        self.interface_pareser = InterfaceParser()
+        logger.info("Initializing ConfigParser...")
+
+        self.interface_parser = InterfaceParser()
         self.aaa_parser = AAAParser()
         self.vlan_parser = VLANParser()
         self.ospf_parser = OSPFParser()
         self.acl_parser = ACLParser()
         self.routing_parser = RoutingParser()
         self.bgp_parser = BGPParser()
-    
+
+        logger.success("ConfigParser initialized successfully.")
+
     def parse(
-    self,
-    config: str,
-) -> ParsedConfig:
+        self,
+        config: str,
+    ) -> ParsedConfig:
+        """
+        Parse the complete Cisco configuration.
+
+        Args:
+            config: Raw Cisco configuration.
+
+        Returns:
+            ParsedConfig: Structured configuration object.
+        """
 
         logger.info("Parsing complete configuration...")
 
@@ -46,5 +60,3 @@ class ConfigParser(BaseParser):
         logger.success("Configuration parsed successfully.")
 
         return parsed_config
-        
-    
