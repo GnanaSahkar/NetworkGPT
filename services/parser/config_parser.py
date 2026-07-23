@@ -50,11 +50,12 @@ class ConfigParser(BaseParser):
         parsed_config = ParsedConfig()
 
         parsed_config.interfaces = self.interface_parser.parse(config)
-        parsed_config.aaa = self.aaa_parser.parse(config)
         parsed_config.vlans = self.vlan_parser.parse(config)
-        parsed_config.ospf = self.ospf_parser.parse(config)
         parsed_config.acls = self.acl_parser.parse(config)
         parsed_config.routes = self.routing_parser.parse(config)
+
+        parsed_config.aaa = self.aaa_parser.parse(config)
+        parsed_config.ospf = self.ospf_parser.parse(config)
         parsed_config.bgp = self.bgp_parser.parse(config)
 
         logger.success("Configuration parsed successfully.")

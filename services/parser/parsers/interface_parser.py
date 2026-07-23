@@ -1,42 +1,35 @@
-"""
-Interface Parser for NetworkGPT.
-
-Parses Cisco interface configurations into
-structured Interface models.
-"""
-
-from services.parser.models import Interface
-from utils.logger import logger
 from services.parser.base_parser import BaseParser
+from services.parser.models import Interface
+
+from utils.logger import logger
+
 
 class InterfaceParser(BaseParser):
     """
-    Parses Cisco interface configurations.
+    Parser for Cisco interface configurations.
     """
 
     def __init__(self):
-
-        logger.info("Initializing Interface Parser...")
-
-        logger.success("Interface Parser initialized successfully.")
+        logger.info("Initializing InterfaceParser...")
 
     def parse(
         self,
         config: str,
-    ) -> Interface:
+    ) -> list[Interface]:
         """
-        Parse a single interface configuration.
+        Parse interface configurations.
 
         Args:
-            config: Interface configuration block.
+            config: Complete device configuration.
 
         Returns:
-            Interface model.
+            List of parsed Interface objects.
         """
 
-        logger.info("Parsing interface configuration...")
+        logger.info("Parsing interface configurations...")
 
-        interface = Interface(name="")
+        interfaces: list[Interface] = []
+        current_interface: Interface | None = None
 
         for line in config.splitlines():
 
@@ -45,42 +38,91 @@ class InterfaceParser(BaseParser):
             if not line:
                 continue
 
+            # -------------------------------------------------
+            # Start of a new interface block
+            # -------------------------------------------------
             if line.startswith("interface"):
-                interface.name = line.split(maxsplit=1)[1]
 
-            elif line.startswith("description"):
-                interface.description = line.replace(
-                    "description",
-                    "",
-                    1,
-                ).strip()
+                # Save the previous interface before starting a new one
+                if current_interface is not None:
+                    interfaces.append(current_interface)
 
+                interface_name = line.split(maxsplit=1)[1]
+
+                current_interface = Interface(
+                    name=interface_name
+                )
+
+                continue
+
+            # Ignore lines until an interface block starts
+            if current_interface is None:
+                continue
+
+            # -------------------------------------------------
+            # Description
+            # -------------------------------------------------
+            if line.startswith("description"):
+
+                current_interface.description = (
+                    line.replace(
+                        "description",
+                        "",
+                        1,
+                    ).strip()
+                )
+
+            # -------------------------------------------------
+            # IP Address
+            # -------------------------------------------------
             elif line.startswith("ip address"):
 
                 parts = line.split()
 
                 if len(parts) >= 4:
-                    interface.ip_address = parts[2]
-                    interface.subnet_mask = parts[3]
+                    current_interface.ip_address = parts[2]
+                    current_interface.subnet_mask = parts[3]
 
-            elif line.startswith("shutdown"):
-                interface.shutdown = True
+            # -------------------------------------------------
+            # Shutdown
+            # -------------------------------------------------
+            elif line == "shutdown":
+                current_interface.shutdown = True
 
-            elif line.startswith("no shutdown"):
-                interface.shutdown = False
+            elif line == "no shutdown":
+                current_interface.shutdown = False
 
+            # -------------------------------------------------
+            # Speed
+            # -------------------------------------------------
             elif line.startswith("speed"):
-                interface.speed = line.split(maxsplit=1)[1]
 
+                current_interface.speed = (
+                    line.split(maxsplit=1)[1]
+                )
+
+            # -------------------------------------------------
+            # Duplex
+            # -------------------------------------------------
             elif line.startswith("duplex"):
-                interface.duplex = line.split(maxsplit=1)[1]
 
+                current_interface.duplex = (
+                    line.split(maxsplit=1)[1]
+                )
+
+            # -------------------------------------------------
+            # Access VLAN
+            # -------------------------------------------------
             elif line.startswith("switchport access vlan"):
 
-                interface.vlan = line.split()[-1]
+                current_interface.vlan = line.split()[-1]
+
+        # Save the last interface
+        if current_interface is not None:
+            interfaces.append(current_interface)
 
         logger.success(
-            f"Interface '{interface.name}' parsed successfully."
+            f"Successfully parsed {len(interfaces)} interface(s)."
         )
 
-        return interface
+        return interfaces
