@@ -1,0 +1,19 @@
+==========================================================
+OSPF
+==========================================================
+
+OVERVIEW
+OSPF is a link-state routing protocol.
+
+ROUTER ID
+router ospf 1
+ router-id 1.1.1.1
+
+PASSIVE INTERFACES
+passive-interface default
+no passive-interface GigabitEthernet0/0
+
+VERIFICATION
+show ip ospf
+show ip ospf interface
+show ip protocols

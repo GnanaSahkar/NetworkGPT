@@ -1,0 +1,14 @@
+==========================================================
+BGP
+==========================================================
+
+OVERVIEW
+Border Gateway Protocol.
+
+BEST PRACTICES
+- Configure Router ID.
+- Configure neighbors.
+- Advertise required networks.
+
+VERIFICATION
+show ip bgp summary

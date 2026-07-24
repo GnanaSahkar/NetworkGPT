@@ -1,0 +1,13 @@
+==========================================================
+ACL
+==========================================================
+
+OVERVIEW
+ACLs filter traffic.
+
+BEST PRACTICES
+- Avoid permit ip any any unless required.
+- Remove empty ACLs.
+
+VERIFICATION
+show access-lists

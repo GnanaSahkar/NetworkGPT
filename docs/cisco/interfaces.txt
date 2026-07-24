@@ -1,0 +1,29 @@
+==========================================================
+INTERFACES
+==========================================================
+
+OVERVIEW
+Interfaces connect network devices and carry Layer 2/Layer 3 traffic.
+
+BEST PRACTICES
+- Always configure interface descriptions.
+- Assign IP addresses where required.
+- Disable unused interfaces.
+- Verify speed and duplex.
+- Use consistent naming.
+
+COMMON FINDINGS
+- Missing Interface Description
+- Missing IP Address
+- Interface Administratively Down
+
+CONFIGURATION
+interface GigabitEthernet0/0
+ description WAN Link
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+
+VERIFICATION
+show ip interface brief
+show interfaces
+show running-config interface GigabitEthernet0/0

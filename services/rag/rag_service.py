@@ -1,9 +1,9 @@
-
 """
 RAG Service for NetworkGPT.
 
-Coordinates retrieval and AI generation to answer
-user questions using the knowledge base.
+Provides Retrieval-Augmented Generation (RAG) functionality by
+retrieving relevant documentation from the knowledge base and,
+optionally, generating AI responses.
 """
 
 from services.ai.ai_service import AIService
@@ -19,7 +19,7 @@ class RAGService:
 
     def __init__(self):
         """
-        Initialize the RAG Service.
+        Initialize the RAG service.
         """
 
         logger.info("Initializing RAG Service...")
@@ -29,6 +29,49 @@ class RAGService:
         self.ai_service = AIService()
 
         logger.success("RAG Service initialized successfully.")
+
+    def retrieve_context(
+        self,
+        query: str,
+    ) -> str:
+        """
+        Retrieve relevant documentation from the knowledge base.
+
+        Args:
+            query: Search query.
+
+        Returns:
+            Retrieved context as a single string.
+        """
+
+        logger.info(
+            f"Retrieving context for query: {query}"
+        )
+
+        results = self.retriever.retrieve(
+            query=query,
+        )
+
+        documents = results.get(
+            "documents",
+            [],
+        )
+
+        if not documents or not documents[0]:
+            logger.warning(
+                "No relevant documents found."
+            )
+            return ""
+
+        context = "\n\n".join(
+            documents[0]
+        )
+
+        logger.success(
+            "Context retrieved successfully."
+        )
+
+        return context
 
     def ask(
         self,
@@ -41,30 +84,28 @@ class RAGService:
             question: User question.
 
         Returns:
-            AI generated answer based on retrieved context.
+            AI-generated answer.
         """
 
-        logger.info("Retrieving relevant context...")
+        logger.info(
+            "Generating RAG response..."
+        )
 
-        results = self.retriever.retrieve(
+        context = self.retrieve_context(
             query=question,
         )
-
-        context = "\n\n".join(
-            results["documents"][0]
-        )
-
-        logger.info("Creating RAG prompt...")
 
         prompt = self.prompt_manager.create_rag_prompt(
             context=context,
             question=question,
         )
 
-        logger.info("Generating AI response...")
+        answer = self.ai_service.ask(
+            prompt
+        )
 
-        answer = self.ai_service.ask(prompt)
-
-        logger.success("RAG response generated successfully.")
+        logger.success(
+            "RAG response generated successfully."
+        )
 
         return answer

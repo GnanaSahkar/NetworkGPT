@@ -6,6 +6,7 @@ This is the main entry point for all the AI capabilities."""
 from services.ai.gemini_client import GeminiAIClient
 from services.ai.prompt_manager import PromptManager
 from utils.logger import logger
+from services.analyzer.models import AnalysisReport
 
 class AIService:
     """AI service for NetworkGPT."""
@@ -27,3 +28,9 @@ class AIService:
     def explain_command(self, command: str) -> str:
         prompt = self.prompt_manager.command_prompt(command)
         return self.client.generate_text(prompt)
+    
+    def generate_analysis_report(
+        self,
+        analysis_report: AnalysisReport,
+    ) -> str:
+        ... 

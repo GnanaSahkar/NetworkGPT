@@ -1,11 +1,19 @@
+==========================================================
+AAA
+==========================================================
 
-AAA (Authentication, Authorization and Accounting)
+OVERVIEW
+AAA provides Authentication, Authorization and Accounting.
 
-AAA is a Cisco security framework that provides centralized authentication,
-authorization and accounting for network devices.
+BEST PRACTICES
+- Configure Authentication.
+- Configure Authorization.
+- Configure Accounting.
+- Use TACACS+ or RADIUS.
+- Configure local fallback.
 
-Benefits:
-- Centralized user management
-- Improved security
-- Better auditing
-- Integration with RADIUS and TACACS+
+VERIFICATION
+show running-config | section aaa
+show aaa sessions
+show tacacs
+show radius

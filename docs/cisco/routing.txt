@@ -1,0 +1,13 @@
+==========================================================
+STATIC ROUTING
+==========================================================
+
+DEFAULT ROUTE
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
+
+BEST PRACTICES
+- Configure a default route.
+- Avoid duplicate routes.
+
+VERIFICATION
+show ip route

@@ -1,0 +1,18 @@
+==========================================================
+VLAN
+==========================================================
+
+OVERVIEW
+VLANs segment Layer 2 networks.
+
+CONFIGURATION
+vlan 10
+ name USERS
+
+BEST PRACTICES
+- Name VLANs.
+- Remove unused VLANs.
+
+VERIFICATION
+show vlan brief
+show interfaces trunk
